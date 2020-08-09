@@ -10,6 +10,7 @@ import About from './components/About'
 import Nav from './components/Nav';
 import Login from './components/Login'
 import Register from './components/Register'
+import Home from './components/Home'
 
 function App() {
 
@@ -18,6 +19,9 @@ function App() {
         <div>
           <Nav />
           <Switch>
+          <Route exact path="/">
+              <Home />
+            </Route>
             <Route exact path="/login">
               <Login />
             </Route>

@@ -51,12 +51,9 @@ export default function Login() {
         
     }
 
-
-
     return ( 
 
-            <div className="row">
-                                          
+            <div className="row">             
                 <div className="col-md-3 mx-auto">
                     <div className="card mt-4 text-center">
                         <div className="card-header">

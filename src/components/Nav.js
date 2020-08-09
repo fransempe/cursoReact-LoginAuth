@@ -5,6 +5,20 @@ import {
 
 
 export default function Nav() {
+
+    const Token = localStorage.getItem('Token');
+    const tokenParse = JSON.parse(Token);
+
+    const logout = {
+        method: 'POST',
+        headers: 
+        {
+            'Authorization': 'Bearer ' + tokenParse
+        }
+    }
+    const handleClickLogout = () =>{
+        localStorage.removeItem('Token');
+    }
     return (
         <div>
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -18,10 +32,16 @@ export default function Nav() {
                             <Link to="/"><a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a></Link>
                         </li>
                         <li className="nav-item">
-                            <Link to="/login"><a className="nav-link" href="#">SignIn</a></Link>
+                            <Link to="/login"><a className="nav-link" href="#">Login</a></Link>
                         </li>
                         <li className="nav-item">
                             <Link to="/register"><a className="nav-link" href="#">Pricing</a></Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link onClick = { handleClickLogout }
+                                  >
+                                <a className="nav-link" href="#">Logout</a>
+                            </Link>
                         </li>
                     </ul>
                 </div>
