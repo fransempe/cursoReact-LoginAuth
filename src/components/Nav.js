@@ -35,7 +35,7 @@ export default function Nav() {
                             <Link to="/login"><a className="nav-link" href="#">Login</a></Link>
                         </li>
                         <li className="nav-item">
-                            <Link to="/register"><a className="nav-link" href="#">Pricing</a></Link>
+                            <Link to="/register"><a className="nav-link" href="#">Register</a></Link>
                         </li>
                         <li className="nav-item">
                             <Link onClick = { handleClickLogout }
