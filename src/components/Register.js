@@ -1,41 +1,26 @@
 import React, {useState} from 'react'
+import { register } from '../services/auth'
 
 export default function Register() {
-
-    const Token = localStorage.getItem('Token');
-    const tokenParse = JSON.parse(Token);
 
     const [user, setUser] = useState({
         name:'',
         email:'',
-        password:''
+        password:'',
+        confirmpassword:''
     });
 
-
-    const data = JSON.stringify({
-        name: user.name,
-        email: user.email,
-        password: user.password
-    })
-
-    const options = {
-        method: 'POST',
-        headers:{ 
-            'Content-Type' :'application/json'
-            },
-        body: data
-    }
+        
     const onHandleSubmit = async (e) =>{
-        e.preventDefault()
         try {
-
-            const res = await fetch("https://redis-auth.herokuapp.com/auth/register", options)
-            const datos = await res.json()  
-            console.log(datos);          
+            e.preventDefault()
+            validations();
+            const datos = await register(user);
 
         } catch (error) {
-            
+            alert(error.message)
         }
+
     }
 
     const onHandleChange = (e) =>{
@@ -43,6 +28,9 @@ export default function Register() {
             ...user,
             [e.target.name]: e.target.value
         })
+        
+    }
+    const validations = () =>{
         
     }
     return (
@@ -56,13 +44,16 @@ export default function Register() {
                         <div className="card-body">
                             <form onSubmit={onHandleSubmit}>
                              <div className="form-group">
-                                    <input onChange={onHandleChange} type="text" placeholder="Name" name="Name" value={user.name} />
+                                    <input onChange={onHandleChange} type="text" placeholder="Name" name="name" value={user.name} />
                                 </div>
                                 <div className="form-group">
                                     <input onChange={onHandleChange} type="email" placeholder="Email" name="email" value={user.email} />
                                 </div>
                                 <div className="form-group">
                                     <input onChange={onHandleChange} className="input" type="password" placeholder="Password" name="password" value={user.password} />
+                                </div>
+                                <div className="form-group">
+                                    <input onChange={onHandleChange} className="input" type="password" placeholder="Confirm Password" name="confirmpassword" value={user.confirmpassword} />
                                 </div>
                                 <div className="form-group">
                                     <button type="submit" className="btn btn-primary btn-block">
@@ -73,7 +64,6 @@ export default function Register() {
                         </div>
                     </div>
                 </div>
-
             </div>
     )
 }

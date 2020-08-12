@@ -1,7 +1,5 @@
 import React, {useState} from 'react'
 
-
-
 export default function About() {
 
     const Token = localStorage.getItem('Token');
@@ -28,7 +26,8 @@ export default function About() {
 
     return (
         <div>
-            {aboutData}
+            <h4>{aboutData}</h4>
         </div>
+        
     )
 }

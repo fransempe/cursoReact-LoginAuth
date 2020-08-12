@@ -27,23 +27,25 @@ export default function Nav() {
                     <span className="navbar-toggler-icon"></span>
                 </button>
                 <div className="collapse navbar-collapse" id="navbarNav">
-                    <ul className="navbar-nav">
-                        <li className="nav-item active">
-                            <Link to="/"><a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a></Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link to="/login"><a className="nav-link" href="#">Login</a></Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link to="/register"><a className="nav-link" href="#">Register</a></Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link onClick = { handleClickLogout }
-                                  >
-                                <a className="nav-link" href="#">Logout</a>
-                            </Link>
-                        </li>
-                    </ul>
+                        {tokenParse ? 
+                        <ul className="navbar-nav">
+                            <li className="nav-item">
+                                <Link onClick = { handleClickLogout }
+                                    >
+                                    <a className="nav-link" href="#">Logout</a>
+                                </Link>
+                            </li>
+                        </ul>
+                        :
+                        <ul className="navbar-nav">
+                            <li className="nav-item">
+                                <Link to="/login"><a className="nav-link" href="#">Login</a></Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link to="/register"><a className="nav-link" href="#">Register</a></Link>
+                            </li>              
+                        </ul>
+                        }
                 </div>
             </nav>
         </div>

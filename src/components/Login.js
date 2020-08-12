@@ -1,9 +1,11 @@
 import React, {useState, useEffect} from 'react'
-import { Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
+import { login } from '../services/auth'
 
 export default function Login() {
 
+    const history = useHistory();
 
     const Token = localStorage.getItem('Token');
     const tokenParse = JSON.parse(Token);
@@ -15,32 +17,18 @@ export default function Login() {
 
     const [status, setStatus] = useState({undefined})
 
-
-    const data = JSON.stringify({
-        email: user.email,
-        password: user.password
-    })
-
-    const options = {
-        method: 'POST',
-        headers:{ 
-            'Content-Type' :'application/json'
-            },
-        body: data
-    }
     const onHandleSubmit = async (e) =>{
-        e.preventDefault()
         try {
-
-            const res = await fetch("https://redis-auth.herokuapp.com/auth/login", options)
-            const datos = await res.json()
-            setStatus(res.status);
-            localStorage.setItem('Token', JSON.stringify(datos.access_token))
-            
+            e.preventDefault()
+        
+            const datos = await login(user);
+            localStorage.setItem('Token', JSON.stringify(datos.access_token));
+            history.push("/about");
 
         } catch (error) {
-            localStorage.removeItem('Token');
+            alert(error.message)
         }
+        
     }
 
     const onHandleChange = (e) =>{
@@ -48,11 +36,9 @@ export default function Login() {
             ...user,
             [e.target.name]: e.target.value
         })
-        
     }
 
     return ( 
-
             <div className="row">             
                 <div className="col-md-3 mx-auto">
                     <div className="card mt-4 text-center">
@@ -74,12 +60,9 @@ export default function Login() {
                                     </button>
                                 </div>
                             </form>
-                            { tokenParse && <Redirect to="/about" /> }
                         </div>
                     </div>
                 </div>
-
             </div>
-            
     )
 }
